@@ -6,6 +6,10 @@
 package Exercise_3_db;
 
 import org.neo4j.driver.v1.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.neo4j.driver.v1.Values.parameters;
 
 public class QueriesCypher {
@@ -21,49 +25,61 @@ public class QueriesCypher {
 
     }
 
-    public Double findPersonEndorsesTaskA(String name) {
+    public long findPersonEndorsesTaskA(String name) {
         StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES]->(b:Person) WHERE a.name = {name} "
-                + "RETURN  b.name as name",
+                        + "RETURN  b.name as name",
                 parameters("name", name));
-        while ( result.hasNext() ) {
+
+        long before = System.currentTimeMillis();
+        while (result.hasNext()) {
             Record record = result.next();
-            System.out.println(record.get("name").asString());
+            record.get("name").asString();
         }
-        
-        return 0.0;
+        long after = System.currentTimeMillis();
+        return (after - before);
     }
 
-    public Double findPersonEndorsesTaskB(String name) {
-        StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES]->(:Person)-[:ENDORSES]->(b:Person) WHERE a.name = {name} "
-                    + "RETURN DISTINCT b.name as name",
+    public long findPersonEndorsesTaskB(String name) {
+        StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES*..2]->(b:Person) WHERE a.name = {name} "
+                        + "RETURN DISTINCT b.name as name",
                 parameters("name", name));
-        while ( result.hasNext() ) {
+
+        long before = System.currentTimeMillis();
+        while (result.hasNext()) {
             Record record = result.next();
-            System.out.println(record.get("name").asString());
-        }   
-        return 0.0;
+            record.get("name").asString();
+        }
+        long after = System.currentTimeMillis();
+        return (after - before);
     }
 
-    public Double findPersonEndorsesTaskC(String name) {
-        StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES]->(:Person)-[:ENDORSES]->(:Person)-[:ENDORSES]->(b:Person) WHERE a.name = {name} "
-                + "RETURN DISTINCT b.name as name",
+    public long findPersonEndorsesTaskC(String name) {
+        StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES*..3]->(b:Person) WHERE a.name = {name} "
+                        + "RETURN DISTINCT b.name as name",
                 parameters("name", name));
-        while ( result.hasNext() ) {
+
+        long before = System.currentTimeMillis();
+        while (result.hasNext()) {
             Record record = result.next();
-            System.out.println(record.get("name").asString());
-        }   
-        return 0.0;
+            record.get("name").asString();
+        }
+        long after = System.currentTimeMillis();
+        return (after - before);
     }
-    
-    public Double findPersonEndorsesTaskD(String name) {
-        StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES]->(:Person)-[:ENDORSES]->(:Person)-[:ENDORSES]->(:Person)-[:ENDORSES]->(b:Person) WHERE a.name = {name} "
-                + "RETURN DISTINCT b.name as name",
+
+    public long findPersonEndorsesTaskD(String name) {
+        long startTime = System.nanoTime();
+        StatementResult result = session.run("MATCH (a:Person)-[:ENDORSES*..4]->(b:Person) WHERE a.name = {name} "
+                        + "RETURN DISTINCT b.name as name",
                 parameters("name", name));
-         while ( result.hasNext() ) {
+
+        long before = System.currentTimeMillis();
+        while (result.hasNext()) {
             Record record = result.next();
-            System.out.println(record.get("name").asString());
-        }   
-        return 0.0;
+            record.get("name").asString();
+        }
+        long after = System.currentTimeMillis();
+        return (after - before);
     }
 
     public void closeConnection() {
