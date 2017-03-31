@@ -4,20 +4,62 @@ Group:
 - Nikolai Hansen
 - Jonathan Egebak Carlsen
 ----------------------------------------------------------
-Exercise3_Sql_Graph
 
-- Setup a MySQL and a Neo4j database respectively.
-- Import the data from the social network (endorsement graph https://github.com/HelgeCPH/db_course_nosql/blob/master/social_network/archive_graph.tar.gz) into a Neo4J database and into a MySQL database repectively.
-- Construct queries in SQL and in Cypher, which find
-- all persons that a person endorses, i.e., endorsements of depth one.
-- all persons that are endorsed by endorsed persons of a person, i.e., endorsements of depth two.
-- endorsements of depth three.
-- endorsements of depth four.
-- endorsements of depth five.
-- Write a Java program that executes the above queries for twenty random nodes against the two respective databases.
--Extend your Java program, so that it measures the execution times of each query, i.e., you run a benchmark for the two databases.
-- You collect your measurement results and present them with an evaluation of your experiment in a Markdown file on your Github account. That is, you hand in this assignment via Github, with one hand-in per group.
-- Present the execution time of each query each of the 20 random nodes/persons per database.
-- Present the average and the median runtime of each of the queries per database.
-- Push your solution, source, code, and presentation of the results to a Github repository per group and inform Helge about that.
+###**Level One**
+**MySql**
+Results: 132, 111, 135, 126, 125, 126, 123, 116, 116, 126, 118, 115, 114, 115, 135, 112, 121, 133, 114, 113
+Avg:  116.75
+Median: 126
+
+**Neo4J**
+Results:207, 62,64,40,40,28,32,17,39,215,16,17,15,21,22,62,16,146,26,29
+Avg:55 
+Median: 215
+
+###**Level Two**
+**MySql**
+Results: 135, 129, 145, 140, 129, 116, 148, 127, 140, 120, 133, 131, 134, 122, 153, 125, 133, 122, 131, 126.0
+Avg: 132.95 
+Median: 120.0
+
+**Neo4J**
+Results: 97, 393,173,477,410,271,10,122,51,296,349,356,87,203,44,16,25,6621,32
+Avg:174 
+Median: 296
+
+###**Level three**
+**MySql**
+Results: 163, 1364, 187, 409, 205, 279, 171145,142,390, 684, 330, 4653, 692, 749, 322, 280, 141, 478, 440.0 
+Avg: 612.2
+Median: 390
+
+**Neo4J **
+Results:4136, 488, 431, 1196, 2990, 3668, 1531, 484, 229, 507, 584, 126, 397, 2993, 3190, 1620, 2154, 10644, 316, 181 
+Avg: 1893
+Median: 507
+
+###**Level Four**
+**MySql**
+Results: 23600, 4863, 7119,  4968, 21609,511, 3438, 18925, 3941, 10556, 15572, 354,
+12508, 1518, 6491, 8293,12942, 2178, 2284, 1930
+Avg: 8340.75
+Median: 10556
+
+**Neo4J **
+Results: took to long
+Avg: took to long
+Median: took to long
+
+###**Level Five**
+**MySql**
+Results: 53230,123420,67660,22570,203207,41058,181332,119804,119804,109013,175215
+Avg: ?
+Median: 175215
+
+**Neo4J **
+Results: took to long
+Avg: took to long
+Median: took to long
+ 
+
 
